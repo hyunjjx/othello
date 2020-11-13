@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "gameboard.h"
 
 
@@ -6,6 +5,8 @@
 	gameboard[x][y]의 북쪽 방향을 보며 
 	돌을 놓을 수 있을지 없을지 확인하는 과정.
 	편의상 gameboard[x][y]를 [x][y]라 지칭.
+
+	0단계. [x][y]가 이미 돌이 있다면 새로 돌을 놓을 수 없음
 
 	1단계.	[x][y]가  north 가장자리에 위치하면
 			(즉, (x-1)<0일 때)
@@ -215,6 +216,7 @@ int north_west_im_white(int x, int y)
 {
 	int i = 0; //while문 안에서 north_west로 갈 때 사용
 
+
 	// 1단계
 	if (((x - 1) < 0) || ((y + 1) > (N - 1)) )
 		return 0; //[x][y]에 돌 배치 불가
@@ -399,8 +401,30 @@ int check_put_white_stone(int a, int b)
 	south_east = south_east_im_white(a, b);
 	north_east = north_east_im_white(a, b);
 
+	//입력한 칸이 빈칸이 아니라면 놓을 수 없음
+	if (gameboard[a][b] != ' ')
+		return 0;
+
+	//한 방향이라도 놓을 수 있다면 result가 1을 반환하여 돌 놓기 가능
 	result = (north || south || west || east ||
 		north_west || south_west || south_east || north_east);
 
 	return result;
+}
+
+int all_check_put_white_stone(void)
+{
+	int row, col;
+	int result_check=0;
+
+	for (row = 0; row < N; row++)
+	{
+		for (col = 0; col < N; col++)
+			result_check += check_put_white_stone(row, col);
+	}
+
+	if (result_check > 0)
+		return 1;
+	else
+		return 0;
 }

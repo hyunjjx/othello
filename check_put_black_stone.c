@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "gameboard.h"
 
 
@@ -327,8 +326,30 @@ int check_put_black_stone(int a, int b)
 	south_east = south_east_im_black(a, b);
 	north_east = north_east_im_black(a, b);
 
+	//입력한 칸이 빈칸이 아니라면 놓을 수 없음
+	if (gameboard[a][b] != ' ')
+		return 0;
+
+	//한 방향이라도 놓을 수 있다면 result가 1을 반환하여 돌 놓기 가능
 	result = (north || south || west || east ||
 		north_west || south_west || south_east || north_east);
 
 	return result;
+}
+
+int all_check_put_black_stone(void)
+{
+	int row, col;
+	int result_check = 0;
+
+	for (row = 0; row < N; row++)
+	{
+		for (col = 0; col < N; col++)
+			result_check += check_put_black_stone(row, col);
+	}
+
+	if (result_check > 0)
+		return 1;
+	else
+		return 0;
 }
