@@ -6,7 +6,8 @@ void try_flip_white_player(int row, int col)
 	int north = 0, south = 0, west = 0, east = 0;
 	int north_west = 0, north_east = 0;
 	int south_west = 0, south_east = 0;
-	int k; //반복문에서 필요
+	int k;
+	int player_w = 0; // 뒤집기 결과 출력시 현재 플레이어 누구인지 표현하기 위함  
 
 	/*	방향 명칭을 이용한 변수는 
 		그 방향으로 상대방 돌이 몇 개 있는지 세고,
@@ -16,6 +17,7 @@ void try_flip_white_player(int row, int col)
 	//북쪽 돌 뒤집기 시도
 	if (north_im_white(row, col) == 1)
 	{
+		//돌 몇개있는지 세기  
 		while (gameboard[row - 1 - north][col] == 'X')
 		{
 			north++;
@@ -33,6 +35,7 @@ void try_flip_white_player(int row, int col)
 		{
 			south++;
 		}
+		
 		for (k = 0; k < south; k++)
 			gameboard[row + 1 + k][col] = 'O';
 	}
@@ -44,6 +47,7 @@ void try_flip_white_player(int row, int col)
 		{
 			west++;
 		}
+		
 		for (k = 0; k < west; k++)
 			gameboard[row][col + 1 + k] = 'O';
 	}
@@ -55,6 +59,7 @@ void try_flip_white_player(int row, int col)
 		{
 			east++;
 		}
+		
 		for (k = 0; k < east; k++)
 			gameboard[row][col - 1 - k] = 'O';
 	}
@@ -66,6 +71,7 @@ void try_flip_white_player(int row, int col)
 		{
 			north_west++;
 		}
+		
 		for (k = 0; k < north_west; k++)
 			gameboard[row - 1 - k][col + 1 + k] = 'O';
 	}
@@ -77,6 +83,7 @@ void try_flip_white_player(int row, int col)
 		{
 			north_east++;
 		}
+		
 		for (k = 0; k < north_east; k++)
 			gameboard[row - 1 - k][col - 1 - k] = 'O';
 	}
@@ -88,6 +95,7 @@ void try_flip_white_player(int row, int col)
 		{
 			south_west++;
 		}
+		
 		for (k = 0; k < south_west; k++)
 			gameboard[row + 1 + k][col + 1 + k] = 'O';
 	}
@@ -99,13 +107,14 @@ void try_flip_white_player(int row, int col)
 		{
 			south_east++;
 		}
+		
 		for (k = 0; k < south_east; k++)
 			gameboard[row + 1 + k][col - 1 - k] = 'O';
 	}
 
 	//방향 에 따른 뒤집기 결과 출력
 	print_flip_result(north, south, west, east,
-		north_west, north_east, south_west, south_east);
+		north_west, north_east, south_west, south_east, player_w);
 }
 
 //검은색돌 플레이어가 뒤집기 시도
@@ -114,7 +123,8 @@ void try_flip_black_player(int row, int col)
 	int north = 0, south = 0, west = 0, east = 0;
 	int north_west = 0, north_east = 0;
 	int south_west = 0, south_east = 0;
-	int k; //반복문에서 필요
+	int player_b = 1; // 뒤집기 결과 출력시 현재 플레이어 누구인지 표현하기 위함  
+	int k;
 
 	/*	방향 명칭을 이용한 변수는
 		그 방향으로 상대방 돌이 몇 개 있는지 세고,
@@ -141,6 +151,7 @@ void try_flip_black_player(int row, int col)
 		{
 			south++;
 		}
+		
 		for (k = 0; k < south; k++)
 			gameboard[row + 1 + k][col] = 'X';
 	}
@@ -152,6 +163,7 @@ void try_flip_black_player(int row, int col)
 		{
 			west++;
 		}
+		
 		for (k = 0; k < west; k++)
 			gameboard[row][col + 1 + k] = 'X';
 	}
@@ -163,6 +175,7 @@ void try_flip_black_player(int row, int col)
 		{
 			east++;
 		}
+		
 		for (k = 0; k < east; k++)
 			gameboard[row][col - 1 - k] = 'X';
 	}
@@ -174,6 +187,7 @@ void try_flip_black_player(int row, int col)
 		{
 			north_west++;
 		}
+		
 		for (k = 0; k < north_west; k++)
 			gameboard[row - 1 - k][col + 1 + k] = 'X';
 	}
@@ -185,6 +199,7 @@ void try_flip_black_player(int row, int col)
 		{
 			north_east++;
 		}
+		
 		for (k = 0; k < north_east; k++)
 			gameboard[row - 1 - k][col - 1 - k] = 'X';
 	}
@@ -196,6 +211,7 @@ void try_flip_black_player(int row, int col)
 		{
 			south_west++;
 		}
+		
 		for (k = 0; k < south_west; k++)
 			gameboard[row + 1 + k][col + 1 + k] = 'X';
 	}
@@ -207,11 +223,12 @@ void try_flip_black_player(int row, int col)
 		{
 			south_east++;
 		}
+		
 		for (k = 0; k < south_east; k++)
 			gameboard[row + 1 + k][col - 1 - k] = 'X';
 	}
 
 	//방향 에 따른 뒤집기 결과 출력
 	print_flip_result(north, south, west, east,
-		north_west, north_east, south_west, south_east);
+		north_west, north_east, south_west, south_east, player_b);
 }

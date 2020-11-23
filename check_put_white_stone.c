@@ -1,12 +1,11 @@
 #include "gameboard.h"
 
 
-/* 흰돌 놓는 플레이어 입장에서
+/*  흰돌 놓는 플레이어 입장에서
 	gameboard[x][y]의 북쪽 방향을 보며 
 	돌을 놓을 수 있을지 없을지 확인하는 과정.
-	편의상 gameboard[x][y]를 [x][y]라 지칭.
-
-	0단계. [x][y]가 이미 돌이 있다면 새로 돌을 놓을 수 없음
+	다른 방향도 비슷하게 작동함. 
+	편의상 gameboard[x][y]를 [x][y]라 지칭
 
 	1단계.	[x][y]가  north 가장자리에 위치하면
 			(즉, (x-1)<0일 때)
@@ -34,6 +33,7 @@
 
 			(x-2)>=0이면 4단계로
 
+
 	4단계.	north방향으로 한칸 더 가도 검은색인지 확인
 			검은색이라면 한칸 더 북쪽으로.
 			검은색이 아닌 칸이 나올때 5단계로
@@ -45,8 +45,6 @@
 			흰색 돌이라면, north 방향에 이웃알이 존재하고
 			그 사이에 검은색 돌이 존재하기 때문에
 			[x][y]에 흰색돌 배치 가능
-
-	나머지 방향들에 대해서도 비슷하게 적용함
 */
 int north_im_white(int x, int y)
 {
@@ -412,19 +410,21 @@ int check_put_white_stone(int a, int b)
 	return result;
 }
 
+//흰색돌 플레이어가 돌을 놓을 수 있는 칸이 단 하나라도 있는지 확인  
 int all_check_put_white_stone(void)
 {
 	int row, col;
 	int result_check=0;
 
+	//돌을 놓을 수 있다면 result_check가 1씩 증가  
 	for (row = 0; row < N; row++)
 	{
 		for (col = 0; col < N; col++)
 			result_check += check_put_white_stone(row, col);
 	}
-
+ 
 	if (result_check > 0)
-		return 1;
+		return 1; // 흰색 돌 플레이어가 돌 배치 가능  
 	else
-		return 0;
+		return 0; // 배치 불가  
 }

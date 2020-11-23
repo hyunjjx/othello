@@ -1,6 +1,6 @@
 #include "gameboard.h"
 
-//가로줄 ----출력함수
+//가로줄 ----출력
 void print_horiz_line(void)
 {
 	// 배치 결과 출력시 필요한 가로줄 ----을 편리하게 쓰기 위함
@@ -12,10 +12,10 @@ void print_horiz_line(void)
 	printf("\n");
 }
 
-//현재 돌 개수 상태 출력
+//현재 돌 개수 몇개인지 상태 출력
 void print_status(void)
 {
-	int row, col; //가로줄, 세로줄 셀 때 사용
+	int row, col; //반복문에서 가로줄 ,세로줄 셀 때  
 	int white = 0; //흰색 돌 셀 때
 	int black = 0; //검은색 돌 셀 때
 
@@ -50,12 +50,12 @@ void print_othello(void)
 	int i; //반복문
 
 	/* 돌 배치 상태 출력 예시
-	 0 1 2 3	//첫번째 줄
-	 --------
-	 0| | | |	// 세번째 줄,	0행
-	 1| | | |					1행
-	 2| | | |					2행
-	 3| | | |					3행
+	   0 1 2 3	//첫번째 줄
+	 --------	//두번째 줄  
+	 0| | | | |	//세번째 줄,	0행
+	 1| | | | |					1행
+	 2| | | | |					2행
+	 3| | | | |					3행
 	 --------
 	*/
 
@@ -63,6 +63,8 @@ void print_othello(void)
 	printf(" ");
 	for (i = 0; i < N; i++)
 		printf(" %d", i);
+	
+	// 두번째 줄 출력  
 	print_horiz_line();
 
 	// 세 번째 줄부터 출력
@@ -82,9 +84,9 @@ void print_othello(void)
 	print_status();
 }
 
-//뒤집은 결과 출력 함수
+//뒤집은 결과 출력
 void print_flip_result(int n, int s, int w, int e,
-	int nw, int ne, int sw, int se)
+	int nw, int ne, int sw, int se, int player)
 {
 	int sum;
 
@@ -96,5 +98,43 @@ void print_flip_result(int n, int s, int w, int e,
 
 	//플레이어가 총 몇개 뒤집었는지 결과 출력
 	sum = n + s + w + e + nw + ne + sw + se;
-	printf("White has flipped %d othellos! \n\n\n", sum);
+	if ((player % 2)==0)
+		printf("White has flipped %d othellos! \n\n\n", sum);
+	else
+		printf("Black has flipped %d othellos! \n\n\n", sum);
+	
+}
+
+
+//게임 결과 출력
+//알의 배치 및 최종 승자 출력  
+void print_game_result(void)
+{
+	int row, col;
+	int white = 0, black = 0;
+	int blank = 0;
+	
+	printf("\n\n::gameresult::\n");
+	print_othello();
+	//흰색 돌과 검은색 돌 개수 세기
+	for (row = 0; row < N; row++)
+	{
+		for (col = 0; col < N; col++)
+		{
+			if (gameboard[row][col] == 'O')
+				white++;
+			if (gameboard[row][col] == 'X')
+				black++;
+		}
+	}
+
+	if (white > black)
+		printf("\nwhite player win! \n");
+	else if (black > white)
+		printf("\n black player win! \n");
+	else
+		printf("\nwhite player and black player tied! \n");
+
+
+
 }

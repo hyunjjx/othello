@@ -337,11 +337,13 @@ int check_put_black_stone(int a, int b)
 	return result;
 }
 
+//흰색돌 플레이어가 돌을 놓을 수 있는 칸이 단 하나라도 있는지 확인 
 int all_check_put_black_stone(void)
 {
 	int row, col;
 	int result_check = 0;
 
+	//돌을 놓을 수 있다면 result_check가 1씩 증가 
 	for (row = 0; row < N; row++)
 	{
 		for (col = 0; col < N; col++)
@@ -349,7 +351,7 @@ int all_check_put_black_stone(void)
 	}
 
 	if (result_check > 0)
-		return 1;
+		return 1; // 검은색 돌 플레이어가 돌 배치 가능 
 	else
-		return 0;
+		return 0;// 배치 불가
 }

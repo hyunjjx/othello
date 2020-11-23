@@ -2,14 +2,15 @@
 #define N 6
 int gameboard[N][N];
 
-//print.c 내의 함수 모음
+//print.c
 void print_horiz_line(void);
 void print_status(void);
 void print_othello(void);
 void print_flip_result(int n, int s, int w, int e,
-	int nw, int ne, int sw, int se);
+	int nw, int ne, int sw, int se, int player);
+void print_game_result(void);
 
-//other.c 내의 함수 모음
+//other.c
 void init_othello(void);
 int check_put_stone(void);
 int isGameEnd(void);
